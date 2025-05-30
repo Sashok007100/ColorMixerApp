@@ -37,19 +37,19 @@ final class ViewController: UIViewController {
 
     // MARK: - IB Actions
     @IBAction func redSliderChanged() {
-        redValueLabel.text = String(format: "%.2f", redSlider.value)
+        redValueLabel.text = formattedValue(from: redSlider.value)
         redSliderValue = CGFloat(redSlider.value)
         updateColorView()
     }
     
     @IBAction func greenSliderChanged() {
-        greenValueLabel.text = String(format: "%.2f", greenSlider.value)
+        greenValueLabel.text = formattedValue(from: greenSlider.value)
         greenSliderValue = CGFloat(greenSlider.value)
         updateColorView()
     }
     
     @IBAction func blueSliderChanged() {
-        blueValueLabel.text = String(format: "%.2f", blueSlider.value)
+        blueValueLabel.text = formattedValue(from: blueSlider.value)
         blueSliderValue = CGFloat(blueSlider.value)
         updateColorView()
     }
@@ -62,9 +62,9 @@ final class ViewController: UIViewController {
     }
     
     private func setupLabels() {
-        redValueLabel.text = String(format: "%.2f", redSlider.value)
-        greenValueLabel.text = String(format: "%.2f", greenSlider.value)
-        blueValueLabel.text = String(format: "%.2f", blueSlider.value)
+        redValueLabel.text = formattedValue(from: redSlider.value)
+        greenValueLabel.text = formattedValue(from: greenSlider.value)
+        blueValueLabel.text = formattedValue(from: blueSlider.value)
     }
     
     private func updateColorView() {
@@ -74,6 +74,10 @@ final class ViewController: UIViewController {
             blue: blueSliderValue,
             alpha: 1
         )
+    }
+    
+    private func formattedValue(from value: Float) -> String {
+        String(format: "%.2f", value)
     }
 }
 
