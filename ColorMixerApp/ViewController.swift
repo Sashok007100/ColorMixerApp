@@ -13,71 +13,54 @@ final class ViewController: UIViewController {
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var blueSlider: UISlider!
     
-    // MARK: - Private Properties
-    private var redSliderValue: CGFloat = 0.0
-    private var greenSliderValue: CGFloat = 0.0
-    private var blueSliderValue: CGFloat = 0.0
-    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         colorView.layer.cornerRadius = 20
         
-        setInitialSliderValues()
         setupLabels()
-        
-        colorView.backgroundColor = UIColor(
-            red: redSliderValue,
-            green: greenSliderValue,
-            blue: blueSliderValue,
-            alpha: 1
-        )
+        setColor()
     }
 
     // MARK: - IB Actions
-    @IBAction func redSliderChanged() {
-        redValueLabel.text = formattedValue(from: redSlider.value)
-        redSliderValue = CGFloat(redSlider.value)
-        updateColorView()
-    }
-    
-    @IBAction func greenSliderChanged() {
-        greenValueLabel.text = formattedValue(from: greenSlider.value)
-        greenSliderValue = CGFloat(greenSlider.value)
-        updateColorView()
-    }
-    
-    @IBAction func blueSliderChanged() {
-        blueValueLabel.text = formattedValue(from: blueSlider.value)
-        blueSliderValue = CGFloat(blueSlider.value)
-        updateColorView()
+    @IBAction func sliderAction(_ sender: UISlider) {
+        setColor()
+        
+        switch sender {
+        case redSlider:
+            redValueLabel.text = formattedValue(from: redSlider)
+        case greenSlider:
+            greenValueLabel.text = formattedValue(from: greenSlider)
+        default:
+            blueValueLabel.text = formattedValue(from: blueSlider)
+        }
     }
     
     // MARK: - Private Methods
-    private func setInitialSliderValues() {
-        redSliderValue = CGFloat(redSlider.value)
-        greenSliderValue = CGFloat(greenSlider.value)
-        blueSliderValue = CGFloat(blueSlider.value)
-    }
-    
     private func setupLabels() {
-        redValueLabel.text = formattedValue(from: redSlider.value)
-        greenValueLabel.text = formattedValue(from: greenSlider.value)
-        blueValueLabel.text = formattedValue(from: blueSlider.value)
+        redValueLabel.text = formattedValue(from: redSlider)
+        greenValueLabel.text = formattedValue(from: greenSlider)
+        blueValueLabel.text = formattedValue(from: blueSlider)
     }
     
-    private func updateColorView() {
+    private func setColor() {
         colorView.backgroundColor = UIColor(
-            red: redSliderValue,
-            green: greenSliderValue,
-            blue: blueSliderValue,
+            red: redSlider.value.cgFloat(),
+            green: greenSlider.value.cgFloat(),
+            blue: blueSlider.value.cgFloat(),
             alpha: 1
         )
     }
     
-    private func formattedValue(from value: Float) -> String {
-        String(format: "%.2f", value)
+    private func formattedValue(from slider: UISlider) -> String {
+        String(format: "%.2f", slider.value)
+    }
+}
+
+extension Float {
+    func cgFloat() -> CGFloat {
+        CGFloat(self)
     }
 }
 
