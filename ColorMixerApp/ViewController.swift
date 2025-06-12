@@ -29,6 +29,7 @@ final class ViewController: UIViewController {
         
         colorView.layer.cornerRadius = 20
         
+        updateColor()
         setupLabels()
         setColor()
     }
@@ -61,6 +62,14 @@ final class ViewController: UIViewController {
             blue: blueSlider.value.cgFloat(),
             alpha: 1
         )
+    }
+    
+    private func updateColor() {
+        if let colorComponents = previousScreenColor.getColors() {
+            redSlider.value = Float(colorComponents.red)
+            greenSlider.value = Float(colorComponents.green)
+            blueSlider.value = Float(colorComponents.blue)
+        }
     }
     
     private func formattedValue(from slider: UISlider) -> String {
