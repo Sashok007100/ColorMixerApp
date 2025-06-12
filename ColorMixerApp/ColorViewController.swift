@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ColorViewController.swift
 //  ColorMixerApp
 //
 //  Created by Alexandr Artemov (Mac Mini) on 30.05.2025.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class ColorViewController: UIViewController {
     
     // MARK: - IB Outlets
     @IBOutlet var colorView: UIView!
