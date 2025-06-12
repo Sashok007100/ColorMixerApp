@@ -25,6 +25,8 @@ final class ColorViewController: UIViewController {
     @IBOutlet var blueSlider: UISlider!
     
     // MARK: - Public Properties
+    weak var delegate: ColorViewDelegate?
+    
     var previousScreenColor: UIColor!
     
     // MARK: - Life Cycle
@@ -52,6 +54,12 @@ final class ColorViewController: UIViewController {
         }
     }
     
+    @IBAction func doneButtonTapped() {
+        guard let color = colorView.backgroundColor else { return }
+        delegate?.didSelectColor(color)
+        
+        dismiss(animated: true)
+    }
     // MARK: - Private Methods
     private func setupLabels() {
         redValueLabel.text = formattedValue(from: redSlider)
