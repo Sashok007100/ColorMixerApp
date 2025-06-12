@@ -41,6 +41,7 @@ final class ColorViewController: UIViewController {
         
         updateColor()
         setupLabels()
+        setupTextField()
         setColor()
     }
 
@@ -51,10 +52,13 @@ final class ColorViewController: UIViewController {
         switch sender {
         case redSlider:
             redValueLabel.text = formattedValue(from: redSlider)
+            redTextField.text = formattedValue(from: redSlider)
         case greenSlider:
             greenValueLabel.text = formattedValue(from: greenSlider)
+            greenTextField.text = formattedValue(from: greenSlider)
         default:
             blueValueLabel.text = formattedValue(from: blueSlider)
+            blueTextField.text = formattedValue(from: blueSlider)
         }
     }
     
@@ -69,6 +73,12 @@ final class ColorViewController: UIViewController {
         redValueLabel.text = formattedValue(from: redSlider)
         greenValueLabel.text = formattedValue(from: greenSlider)
         blueValueLabel.text = formattedValue(from: blueSlider)
+    }
+    
+    private func setupTextField() {
+        redTextField.text = formattedValue(from: redSlider)
+        greenTextField.text = formattedValue(from: greenSlider)
+        blueTextField.text = formattedValue(from: greenSlider)
     }
     
     private func setColor() {
