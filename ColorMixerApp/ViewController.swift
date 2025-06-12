@@ -1,3 +1,10 @@
+//
+//  ViewController.swift
+//  ColorMixerApp
+//
+//  Created by Alexandr Artemov (Mac Mini) on 30.05.2025.
+//
+
 import UIKit
 
 final class ViewController: UIViewController {
