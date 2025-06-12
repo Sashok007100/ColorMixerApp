@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ColorViewDelegate: AnyObject {
+    func didSelectColor(_ color: UIColor)
+}
+
 final class ColorViewController: UIViewController {
     
     // MARK: - IB Outlets
