@@ -8,11 +8,6 @@
 import UIKit
 
 final class StartScreenViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let settingsVC = segue.destination as? ColorViewController else { return }
