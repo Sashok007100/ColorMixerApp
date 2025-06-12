@@ -20,6 +20,9 @@ final class ViewController: UIViewController {
     @IBOutlet var greenSlider: UISlider!
     @IBOutlet var blueSlider: UISlider!
     
+    // MARK: - Public Properties
+    var previousScreenColor: UIColor!
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
