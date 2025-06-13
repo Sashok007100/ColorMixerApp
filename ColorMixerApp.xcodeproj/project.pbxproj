@@ -14,7 +14,7 @@
 		89CD3E922DE9091200C1F625 /* Exceptions for "ColorMixerApp" folder in "ColorMixerApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Apps/Info.plist,
 			);
 			target = 89CD3E7F2DE9091100C1F625 /* ColorMixerApp */;
 		};
@@ -147,7 +147,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R6NZ77294P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ColorMixerApp/Info.plist;
+				INFOPLIST_FILE = ColorMixerApp/Apps/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -179,7 +179,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R6NZ77294P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ColorMixerApp/Info.plist;
+				INFOPLIST_FILE = ColorMixerApp/Apps/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
