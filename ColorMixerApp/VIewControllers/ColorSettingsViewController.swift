@@ -63,11 +63,14 @@ final class ColorSettingsViewController: UIViewController {
         
         switch sender {
         case redSlider:
-            updateUI(for: redSlider, label: redValueLabel, textField: redTextField)
+            updateLabel(for: redSlider, label: redValueLabel)
+            updateTextField(for: redSlider, textField: redTextField)
         case greenSlider:
-            updateUI(for: greenSlider, label: greenValueLabel, textField: greenTextField)
+            updateLabel(for: greenSlider, label: greenValueLabel)
+            updateTextField(for: greenSlider, textField: greenTextField)
         default:
-            updateUI(for: blueSlider, label: blueValueLabel, textField: blueTextField)
+            updateLabel(for: blueSlider, label: blueValueLabel)
+            updateTextField(for: blueSlider, textField: blueTextField)
         }
     }
     
@@ -129,8 +132,11 @@ final class ColorSettingsViewController: UIViewController {
         blueSlider.value = Float(colorComponents.blue)
     }
     
-    private func updateUI(for slider: UISlider, label: UILabel, textField: UITextField) {
+    private func updateLabel(for slider: UISlider, label: UILabel) {
         label.text = formattedValue(from: slider)
+    }
+    
+    private func updateTextField(for slider: UISlider, textField: UITextField) {
         textField.text = formattedValue(from: slider)
     }
     
