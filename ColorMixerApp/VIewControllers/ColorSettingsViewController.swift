@@ -39,12 +39,6 @@ final class ColorSettingsViewController: UIViewController {
         
         colorView.layer.cornerRadius = 20
         
-        addDoneButtonToTextFields(to: [
-            redTextField,
-            greenTextField,
-            blueTextField
-        ])
-        
         updateSlidersFromPreviousColor()
         setupLabels()
         setupTextFields()
@@ -81,10 +75,6 @@ final class ColorSettingsViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc func doneTapped() {
-        view.endEditing(true)
-    }
-    
     // MARK: - Private Methods
     private func setupLabels() {
         redValueLabel.text = formattedValue(from: redSlider)
@@ -96,23 +86,6 @@ final class ColorSettingsViewController: UIViewController {
         redTextField.text = formattedValue(from: redSlider)
         greenTextField.text = formattedValue(from: greenSlider)
         blueTextField.text = formattedValue(from: blueSlider)
-    }
-    
-    private func addDoneButtonToTextFields(to textFields: [UITextField]) {
-        let toolBar = UIToolbar()
-        toolBar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(doneTapped)
-        )
-        
-        toolBar.setItems([doneButton], animated: false)
-        
-        textFields.forEach {
-            $0.inputAccessoryView = toolBar
-        }
     }
     
     private func setPreviewColor() {
@@ -193,6 +166,26 @@ final class ColorSettingsViewController: UIViewController {
 }
 
 extension ColorSettingsViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        textField.inputAccessoryView = toolBar
+        
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: textField,
+            action: #selector(resignFirstResponder)
+        )
+        
+        let flexBarButton = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+        
+        toolBar.items = [flexBarButton, doneButton]
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case redTextField:
