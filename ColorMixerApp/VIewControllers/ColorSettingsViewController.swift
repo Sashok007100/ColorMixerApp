@@ -44,7 +44,7 @@ final class ColorSettingsViewController: UIViewController {
         updateSlidersFromPreviousColor()
         setupLabels()
         setupTextFields()
-        setColor()
+        setPreviewColor()
     }
     
     // MARK: - Overrides
@@ -55,7 +55,7 @@ final class ColorSettingsViewController: UIViewController {
     
     // MARK: - IB Actions
     @IBAction func sliderAction(_ sender: UISlider) {
-        setColor()
+        setPreviewColor()
         
         switch sender {
         case redSlider:
@@ -106,7 +106,7 @@ final class ColorSettingsViewController: UIViewController {
         }
     }
     
-    private func setColor() {
+    private func setPreviewColor() {
         colorView.backgroundColor = UIColor(
             red: redSlider.value.cgFloat(),
             green: greenSlider.value.cgFloat(),
@@ -145,7 +145,7 @@ final class ColorSettingsViewController: UIViewController {
                 slider.value = 0.0
                 label.text = self.formattedValue(from: slider)
                 textField.text = self.formattedValue(from: slider)
-                self.setColor()
+                self.setPreviewColor()
             }
             return
         }
@@ -187,6 +187,6 @@ extension ColorSettingsViewController: UITextFieldDelegate {
         default:
             updateColorValue(from: textField, to: blueSlider, label: blueValueLabel)
         }
-        setColor()
+        setPreviewColor()
     }
 }
