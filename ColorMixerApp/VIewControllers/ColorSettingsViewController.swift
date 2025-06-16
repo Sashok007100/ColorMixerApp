@@ -69,7 +69,7 @@ final class ColorSettingsViewController: UIViewController {
     
     @IBAction func doneButtonTapped() {
         guard let color = colorView.backgroundColor else { return }
-        delegate?.didSelectColor(color)
+        delegate?.setColor(color)
         
         dismiss(animated: true)
     }
