@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Start Screen View Controller-->
+        <!--Color Display View Controller-->
         <scene sceneID="Ray-aQ-Aq6">
             <objects>
-                <viewController id="7xg-nT-4i3" customClass="StartScreenViewController" customModule="ColorMixerApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7xg-nT-4i3" customClass="ColorDisplayViewController" customModule="ColorMixerApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VBL-er-OBk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
