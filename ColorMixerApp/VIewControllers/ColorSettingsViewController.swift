@@ -147,17 +147,20 @@ final class ColorSettingsViewController: UIViewController {
     ) {
         guard let text = textField.text?.replacingOccurrences(of: ",", with: ".") else { return  }
         
-        let parts = text.split(separator: ".")
+        let pattern = #"^(0(\.\d{1,2})?|1(\.0{1,2})?)$"#
+        let isValueValid = NSPredicate(format: "SELF MATCHES %@", pattern)
+            .evaluate(with: text)
         
-        let isValidFormat = (parts.first?.count ?? 0) <= 1 &&
-        (parts.count < 2 || parts[1].count <= 2)
-        
-        guard let value = Float(text), value >= 0.0, value <= 1.0, isValidFormat else {
-            showAlert(title: "Ошибка!", message: "Введите число от 0.00 до 1.00.") {
+        guard let value = Float(text), isValueValid else {
+            showAlert(
+                title: "Ошибка!",
+                message: "Введите число от 0.00 до 1.00."
+            ) {
                 slider.value = 0.0
                 label.text = self.formattedValue(from: slider)
                 textField.text = self.formattedValue(from: slider)
                 self.setPreviewColor()
+                return
             }
             return
         }
