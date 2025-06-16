@@ -25,7 +25,7 @@ final class ColorSettingsViewController: UIViewController {
     @IBOutlet var blueTextField: UITextField!
     
     // MARK: - Public Properties
-    weak var delegate: ColorViewDelegate?
+    weak var delegate: ColorSettingsDelegate?
     
     var previousScreenColor: UIColor!
     

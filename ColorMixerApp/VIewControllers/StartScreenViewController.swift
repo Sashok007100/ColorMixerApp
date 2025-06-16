@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ColorSettingsDelegate: AnyObject {
+    func didSelectColor(_ color: UIColor)
+}
+
 final class StartScreenViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -19,7 +23,7 @@ final class StartScreenViewController: UIViewController {
 }
 
 // MARK: - ColorViewDelegate
-extension StartScreenViewController: ColorViewDelegate {
+extension StartScreenViewController: ColorSettingsDelegate {
     func didSelectColor(_ color: UIColor) {
         view.backgroundColor = color
     }
