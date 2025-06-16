@@ -74,7 +74,6 @@ final class ColorSettingsViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    // MARK: - @objc Methods
     @objc func doneTapped() {
         view.endEditing(true)
     }
