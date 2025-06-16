@@ -125,7 +125,7 @@ final class ColorSettingsViewController: UIViewController {
     }
     
     private func updateSlidersFromPreviousColor() {
-        guard let colorComponents = previousScreenColor.getColors() else { return }
+        let colorComponents = CIColor(color: previousScreenColor)
         
         redSlider.value = Float(colorComponents.red)
         greenSlider.value = Float(colorComponents.green)
