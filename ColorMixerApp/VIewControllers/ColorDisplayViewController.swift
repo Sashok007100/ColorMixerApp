@@ -11,7 +11,7 @@ protocol ColorSettingsDelegate: AnyObject {
     func didSelectColor(_ color: UIColor)
 }
 
-final class StartScreenViewController: UIViewController {
+final class ColorDisplayViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let settingsVC = segue.destination as? ColorSettingsViewController else { return }
@@ -23,7 +23,7 @@ final class StartScreenViewController: UIViewController {
 }
 
 // MARK: - ColorViewDelegate
-extension StartScreenViewController: ColorSettingsDelegate {
+extension ColorDisplayViewController: ColorSettingsDelegate {
     func didSelectColor(_ color: UIColor) {
         view.backgroundColor = color
     }
