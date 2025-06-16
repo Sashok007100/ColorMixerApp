@@ -22,7 +22,7 @@ final class ColorDisplayViewController: UIViewController {
     
 }
 
-// MARK: - ColorViewDelegate
+// MARK: - ColorSettingsDelegate
 extension ColorDisplayViewController: ColorSettingsDelegate {
     func didSelectColor(_ color: UIColor) {
         view.backgroundColor = color
