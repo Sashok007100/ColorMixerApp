@@ -39,7 +39,11 @@ final class ColorSettingsViewController: UIViewController {
         
         colorView.layer.cornerRadius = 20
         
-        addDoneButtonToTextFields()
+        addDoneButtonToTextFields(to: [
+            redTextField,
+            greenTextField,
+            blueTextField
+        ])
         
         updateSlidersFromPreviousColor()
         setupLabels()
@@ -91,17 +95,20 @@ final class ColorSettingsViewController: UIViewController {
         blueTextField.text = formattedValue(from: blueSlider)
     }
     
-    private func addDoneButtonToTextFields() {
+    private func addDoneButtonToTextFields(to textFields: [UITextField]) {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(doneTapped)
+        )
         
         toolBar.setItems([doneButton], animated: false)
         
-        
-        [redTextField, greenTextField, blueTextField].forEach {
-            $0?.inputAccessoryView = toolBar
+        textFields.forEach {
+            $0.inputAccessoryView = toolBar
         }
     }
     
