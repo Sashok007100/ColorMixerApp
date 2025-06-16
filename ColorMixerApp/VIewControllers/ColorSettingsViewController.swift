@@ -1,5 +1,5 @@
 //
-//  ColorViewController.swift
+//  ColorSettingsViewController.swift
 //  ColorMixerApp
 //
 //  Created by Alexandr Artemov (Mac Mini) on 30.05.2025.
@@ -7,11 +7,7 @@
 
 import UIKit
 
-protocol ColorViewDelegate: AnyObject {
-    func didSelectColor(_ color: UIColor)
-}
-
-final class ColorViewController: UIViewController {
+final class ColorSettingsViewController: UIViewController {
     
     // MARK: - IB Outlets
     @IBOutlet var colorView: UIView!
@@ -181,7 +177,7 @@ final class ColorViewController: UIViewController {
     }
 }
 
-extension ColorViewController: UITextFieldDelegate {
+extension ColorSettingsViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case redTextField:

@@ -10,7 +10,7 @@ import UIKit
 final class StartScreenViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let settingsVC = segue.destination as? ColorViewController else { return }
+        guard let settingsVC = segue.destination as? ColorSettingsViewController else { return }
         
         settingsVC.delegate = self
         settingsVC.previousScreenColor = view.backgroundColor
