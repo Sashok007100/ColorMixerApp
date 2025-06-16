@@ -1,5 +1,5 @@
 //
-//  ColorViewController.swift
+//  ColorSettingsViewController.swift
 //  ColorMixerApp
 //
 //  Created by Alexandr Artemov (Mac Mini) on 30.05.2025.
@@ -7,11 +7,7 @@
 
 import UIKit
 
-protocol ColorViewDelegate: AnyObject {
-    func didSelectColor(_ color: UIColor)
-}
-
-final class ColorViewController: UIViewController {
+final class ColorSettingsViewController: UIViewController {
     
     // MARK: - IB Outlets
     @IBOutlet var colorView: UIView!
@@ -29,7 +25,7 @@ final class ColorViewController: UIViewController {
     @IBOutlet var blueTextField: UITextField!
     
     // MARK: - Public Properties
-    weak var delegate: ColorViewDelegate?
+    weak var delegate: ColorSettingsDelegate?
     
     var previousScreenColor: UIColor!
     
@@ -43,12 +39,16 @@ final class ColorViewController: UIViewController {
         
         colorView.layer.cornerRadius = 20
         
-        addDoneButtonToTextFields()
+        addDoneButtonToTextFields(to: [
+            redTextField,
+            greenTextField,
+            blueTextField
+        ])
         
         updateSlidersFromPreviousColor()
         setupLabels()
         setupTextFields()
-        setColor()
+        setPreviewColor()
     }
     
     // MARK: - Overrides
@@ -59,26 +59,28 @@ final class ColorViewController: UIViewController {
     
     // MARK: - IB Actions
     @IBAction func sliderAction(_ sender: UISlider) {
-        setColor()
+        setPreviewColor()
         
         switch sender {
         case redSlider:
-            updateUI(for: redSlider, label: redValueLabel, textField: redTextField)
+            updateLabel(for: redSlider, label: redValueLabel)
+            updateTextField(for: redSlider, textField: redTextField)
         case greenSlider:
-            updateUI(for: greenSlider, label: greenValueLabel, textField: greenTextField)
+            updateLabel(for: greenSlider, label: greenValueLabel)
+            updateTextField(for: greenSlider, textField: greenTextField)
         default:
-            updateUI(for: blueSlider, label: blueValueLabel, textField: blueTextField)
+            updateLabel(for: blueSlider, label: blueValueLabel)
+            updateTextField(for: blueSlider, textField: blueTextField)
         }
     }
     
     @IBAction func doneButtonTapped() {
         guard let color = colorView.backgroundColor else { return }
-        delegate?.didSelectColor(color)
+        delegate?.setColor(color)
         
         dismiss(animated: true)
     }
     
-    // MARK: - @objc Methods
     @objc func doneTapped() {
         view.endEditing(true)
     }
@@ -96,21 +98,24 @@ final class ColorViewController: UIViewController {
         blueTextField.text = formattedValue(from: blueSlider)
     }
     
-    private func addDoneButtonToTextFields() {
+    private func addDoneButtonToTextFields(to textFields: [UITextField]) {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
         
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(doneTapped)
+        )
         
         toolBar.setItems([doneButton], animated: false)
         
-        
-        [redTextField, greenTextField, blueTextField].forEach {
-            $0?.inputAccessoryView = toolBar
+        textFields.forEach {
+            $0.inputAccessoryView = toolBar
         }
     }
     
-    private func setColor() {
+    private func setPreviewColor() {
         colorView.backgroundColor = UIColor(
             red: redSlider.value.cgFloat(),
             green: greenSlider.value.cgFloat(),
@@ -120,15 +125,18 @@ final class ColorViewController: UIViewController {
     }
     
     private func updateSlidersFromPreviousColor() {
-        guard let colorComponents = previousScreenColor.getColors() else { return }
+        let colorComponents = CIColor(color: previousScreenColor)
         
         redSlider.value = Float(colorComponents.red)
         greenSlider.value = Float(colorComponents.green)
         blueSlider.value = Float(colorComponents.blue)
     }
     
-    private func updateUI(for slider: UISlider, label: UILabel, textField: UITextField) {
+    private func updateLabel(for slider: UISlider, label: UILabel) {
         label.text = formattedValue(from: slider)
+    }
+    
+    private func updateTextField(for slider: UISlider, textField: UITextField) {
         textField.text = formattedValue(from: slider)
     }
     
@@ -139,17 +147,20 @@ final class ColorViewController: UIViewController {
     ) {
         guard let text = textField.text?.replacingOccurrences(of: ",", with: ".") else { return  }
         
-        let parts = text.split(separator: ".")
+        let pattern = #"^(0(\.\d{1,2})?|1(\.0{1,2})?)$"#
+        let isValueValid = NSPredicate(format: "SELF MATCHES %@", pattern)
+            .evaluate(with: text)
         
-        let isValidFormat = (parts.first?.count ?? 0) <= 1 &&
-        (parts.count < 2 || parts[1].count <= 2)
-        
-        guard let value = Float(text), value >= 0.0, value <= 1.0, isValidFormat else {
-            showAlert(title: "Ошибка!", message: "Введите число от 0.00 до 1.00.") {
+        guard let value = Float(text), isValueValid else {
+            showAlert(
+                title: "Ошибка!",
+                message: "Введите число от 0.00 до 1.00."
+            ) {
                 slider.value = 0.0
                 label.text = self.formattedValue(from: slider)
                 textField.text = self.formattedValue(from: slider)
-                self.setColor()
+                self.setPreviewColor()
+                return
             }
             return
         }
@@ -181,7 +192,7 @@ final class ColorViewController: UIViewController {
     }
 }
 
-extension ColorViewController: UITextFieldDelegate {
+extension ColorSettingsViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField {
         case redTextField:
@@ -191,6 +202,6 @@ extension ColorViewController: UITextFieldDelegate {
         default:
             updateColorValue(from: textField, to: blueSlider, label: blueValueLabel)
         }
-        setColor()
+        setPreviewColor()
     }
 }
